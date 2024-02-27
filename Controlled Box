@@ -1,0 +1,71 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+class ControlledBall extends Canvas
+{
+int x=0, y=0;
+static private boolean left, right = true ,up ,down;
+static public void main(String... rk)
+{
+JFrame f = new JFrame("Graphics Demo");
+f.setSize(500, 800);
+f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+f.setLocationRelativeTo(null);
+ControlledBall ob = new ControlledBall();
+f.add(ob);
+
+
+class Listener extends KeyAdapter
+{
+public void keyPressed(KeyEvent k)
+{
+if(k.getKeyCode() == KeyEvent.VK_LEFT)
+{
+left = true; right = false; up=false ; down= false;
+}
+else if(k.getKeyCode() == KeyEvent.VK_RIGHT)
+{
+left = false; right = !false;up=false;down=false;
+}
+if(k.getKeyCode()==KeyEvent.VK_UP)
+{
+up = true; down = false;left=false;right=false;
+}
+else if(k.getKeyCode() == KeyEvent.VK_DOWN)
+{
+up = false; down = !false;left=false;right=false;
+}
+
+}
+}
+
+ob.addKeyListener(new Listener());
+
+f.setVisible(true);
+}
+
+void move()
+{
+if(right) x++;
+else if(left) x--;
+if(up) y--;
+else if(down) y++;
+if(x ==450) x = 0;
+if(x==-50) x=450;
+try{ Thread.sleep(10); }
+catch(Exception ex) {}
+repaint();
+}
+
+public void paint(Graphics g)
+{
+g.setColor(Color.BLUE);
+g.setFont(new Font("Rajveer", 3, 36));
+g.drawString("Controlled BOX", 100, 100 );
+
+g.setColor(Color.YELLOW);
+g.fillRoundRect(0+x, 300+y, 100, 60, 35, 20);
+move();
+}
+}
