@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-#lawde
+
 class ControlledBall extends Canvas
 {
 int x=0, y=0;
